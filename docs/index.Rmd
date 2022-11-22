@@ -1,7 +1,7 @@
 ---
 title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+author: "Hanjiang Xu"
+date: '2022-11-21'
 output: html_document
 ---
 
@@ -10,22 +10,23 @@ source("../source/a4-helpers.R")
 source("../source/analysis.R")
 ```
 
-## Abstract 
+## Abstract
+
 [TODO: Include a short abstract (about 50 words)]
 
 # Test (TODO: Remove before submission!!)
+
 ```{r echo=FALSE}
 q1_string <- test_query1()
 num <- 5
 ```
+
 As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
 
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
+-   Here's a test of a dynamic variable. Say **"`r q1_string`!!!**
+-   Here's another test. A vector of numbers: `r test_query2(num)`.
 
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
+Recall that *{r echo=TRUE}* can be used to display the code, which is very useful when developing and debugging a report. Here's an example:
 
 ```{r echo=TRUE}
 num <- 5
@@ -33,13 +34,80 @@ sum <- sum(test_query2(num))
 print(sum)
 ```
 
-## Introduction 
-[TODO]
+## 1. Introduction
 
-## Data Summary 
-[TODO]
+1.  The social issues related to this data set (draw upon Data Feminism, along with your reading at the Vera InstituteLinks to an external site. and and elsewhere, appropriate).
+2.  The direct and indirect stakeholders that are impacted by research into this dataset. In this vein, what are the central values that you need to engage.
+3.  The questions that you answer in your report.
 
-[TODO ... other sections ... See Canvas for details]
+## 2. Data Summary
 
-_All the very best with your work!_
+For this data summary, I have picked three values to calculated: total jail population(total_jail_pop), female jail population(female_jail_pop) and black jail population(black_jail_pop). This data summary is going to answer three questions: the average value of each year, the place with highest/lowest values, and the growth of each value in the past 20 years.
 
+Question 1: The average value of variables across all the counties (in a given year)
+
+-   Following is a section of the data table. I intentionally selected data from 2000 to 2010 ro answer out questions better. In the data table, we can see that the total jail population is gradually rising each year, which is not too surprising. Yet if we compare the increase of female jail population and black jail population, we can see that the black jail population was rising much faster. The black jail population have increase around 11.76 while female only increased 7.28 with a decline in 2009. This information disclose that there might be racial inequities in prison where the possibility of a black individual getting arrested is much higher.
+
+```{r echo = FALSE}
+average_values_all_counties [31:40, ]
+```
+
+Question 2: Places with highest/lowest values
+
+-   Since our data is calculated based on years, and each variable will vary based on each year, I will be selecting one specific years to calculation the highest and lowest: 2018, which is also the most recent data our date set includes. First of all, following are the county names for highest in each variable:
+
+```{r echo = FALSE}
+highest_total_jail_pop
+highest_female_jail_pop
+highest_black_jail_pop
+```
+
+-   Following are the county names in lowest of each variable. I will only be showing the first three county names since there are multiple counties for each variable. To be more specific, all of the lowest county have a value of zero in each variable.
+
+```{r echo = FALSE}
+lowest_total_jail_pop [1:3, ]
+lowest_female_jail_pop [1:3, ]
+lowest_black_jail_pop [1:3, ]
+```
+
+-   It is surprising to see that the Los Angeles County has the highest value in all three variables. However, as we can see with the lowest variables, there are `r nrow(lowest_black_jail_pop)` counties that does not have any black individuals in jail. Yet comparing with the rising numbers of black jail populations, it seemingly does not match. One of my hypothesis is that the rise of black jail population might be centered around regions such as the Los Angele county, which disclose that the prison might have inequality based on regions.
+
+Question 3: Places with highest/lowest values
+
+## 3. Growth of the U.S. Prison Population
+
+Following is the graph of the growth of the U.S. prison population from 1970 to 2018.
+
+-   Question: What does the graph show about U.S. prison population?
+
+    -   In the following graph, we can see that the growth of the prison population is increasing gradually from 1970 to 2018. The graph did not show any decline which means that the number f individuals in jail have not decreased from 1970 to 2018. This data shows a rather concerning fact that more and more people are in jail each year.
+
+```{r echo = FALSE}
+plot_grwoth_us
+```
+
+## 4. Growth of Prison Population by State
+
+Following is the graph of the growth of the U.S prison population of Alabama, California, Oregon and New York.
+
+-   Question: How does the growth of jail population relates to its region?
+
+    -   To answer this question, we have to consider the popularity and the urbanization of the state. It is clear that California and New York has a much higher jail population than Oregon and Alabama. The high prison population matches with my previous finding in section 2, where Los Angeles has the highest number in all three variable examined. California and New York are considered as some of the most popular and urbanized states in America, and it also has a much higher overall population. In this case, one of my hypothesis is that there might be a positive correlation between jail population and the urbanization of the state.
+
+```{r echo = FALSE}
+growth_plot_state
+```
+
+## 5. Female v.s Male Jail Population of 2018
+
+Following is a graph that displaces the number of male compare to female jail population. As displayed below, the blue bars represents male while the purple bars represent female. This graph only indicates number from 2018 of each state.
+
+-   Question: What does the graph show about female and male jail population?
+
+    -   Looking carefully st this graph, it is clear that female jail population is overall much lower than male population. California and Texas might have a significant higher female population than other states, but they also have a much higher male population. In this case, it's safe to say that most of the jail in each states are dominated by male.
+
+```{r echo = FALSE}
+plot_comparison + theme_bw(base_size = 9) 
+```
+
+## 6. Map of Black Jail Population Ratio of 2018
