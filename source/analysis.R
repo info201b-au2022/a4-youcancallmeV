@@ -1,6 +1,5 @@
 library(tidyverse)
 library(dplyr)
-library(leaflet)
 # The functions might be useful for A4
 source("../source/a4-helpers.R")
 
@@ -185,6 +184,7 @@ growth_plot_state
 #----------------------------------------------------------------------------#
 # <variable comparison that reveals potential patterns of inequality>
 df_NA_zero <- replace(incarceration_trends, is.na(incarceration_trends), 0)
+
 get_comparison_df <- function(){
   comparison_df <- df_NA_zero %>%
     group_by(state) %>%
@@ -235,25 +235,34 @@ get_balck_jail_df <- function(){
       black_jail_pop_us = sum(black_jail_pop),
       all_jail_pop_us = sum(total_jail_pop)
     ) %>%
-    mutate(black_ratio = black_jail_pop_us/all_jail_pop_us)
+    mutate(black_jail_ratio = black_jail_pop_us/all_jail_pop_us)
   return(black_jail_df)
 }
 
 df_for_map <- get_balck_jail_df()
 df_for_map <- replace(df_for_map, is.na(df_for_map), 0)
 
+df_for_map$state <- tolower(state.name[match(df_for_map$state, state.abb)])
+
+state_shape <- map_data("state") %>%
+  group_by(region) %>%
+  rename(state = region) %>%
+  left_join(df_for_map, by = "state")
+
 get_balck_ratio_map <- function(){
-  ratio_map <- ggplot(data = df_for_map) +
-    geom_sf()
+  labels <- labs(
+    title = "Balck Jail Population Ratio Map (2018)",
+    caption = ".....") 
+  
+  ratio_map <-ggplot(state_shape) +
+    geom_polygon(
+      mapping = aes(long, lat, group = group, fill = black_jail_ratio),
+      color = "azure4"
+    ) + 
+    scale_fill_continuous(low = "cadetblue1", high = "darkblue") + labels
 }
 
-
-states_map <- leaflet(df_for_map) %>%
-  addTiles()
-
-states_map
+ratio_state_map <- get_balck_ratio_map()
+ratio_state_map
 #----------------------------------------------------------------------------#
-
-## Load data frame ---- 
-
 
