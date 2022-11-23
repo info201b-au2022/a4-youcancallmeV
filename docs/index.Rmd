@@ -1,5 +1,5 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
+title: "U.S. Jail Population Analysis"
 author: "Hanjiang Xu"
 date: '2022-11-21'
 output: html_document
@@ -12,13 +12,15 @@ source("../source/analysis.R")
 
 ## Abstract
 
-[TODO: Include a short abstract (about 50 words)]
+This report contains six sections working with the incarceration data set collected by the Vera Institute. Sections include an introduction, a data summary, and four charts. Each section will answer questions regarding the potential inequalities in the U.S. prison system.
 
 ## 1. Introduction
 
-1.  The social issues related to this data set (draw upon Data Feminism, along with your reading at the Vera InstituteLinks to an external site. and and elsewhere, appropriate).
-2.  The direct and indirect stakeholders that are impacted by research into this dataset. In this vein, what are the central values that you need to engage.
-3.  The questions that you answer in your report.
+To start this report, it is necessary to discuss why we care about this data. Vera Institute is powered by researchers and advocates working to transform the criminal legal system till it is fair for all. It is safe to say that no system in this world is prefect, including the U.S. prison system. Issues such as criminalization and racial disparities are serious problems that the society should look into. In this case, this report is going to run a series of data analysis and data visualization that hopefully displays the inequalities within the U.S. prison system. The direct stakeholder of this analysis report would be the U.S. prison system. The institutions relates to the U.S. prison would be able to improve their system based on the feedback. The indirect stakeholders of this report would be individuals in incarceration and individuals who have loved one in incarceration. Following are questions that would be answered in the section 3, 4, 5, 6 of the report.
+
+-   What can the graphs tell about U.S. prison population?
+-   How does the growth of jail population relates to its region?
+-   What can the graphs show about the difference between female and male jail population?
 
 ## 2. Data Summary
 
@@ -52,13 +54,19 @@ lowest_black_jail_pop [1:3, ]
 
 -   It is surprising to see that the Los Angeles County has the highest value in all three variables. However, as we can see with the lowest variables, there are `r nrow(lowest_black_jail_pop)` counties that does not have any black individuals in jail. Yet comparing with the rising numbers of black jail populations, it seemingly does not match. One of my hypothesis is that the rise of black jail population might be centered around regions such as the Los Angele county, which disclose that the prison might have inequality based on regions.
 
-Question 3: Places with highest/lowest values
+Question 3: Change in values for the last 20 years
+
+```{r echo = FALSE}
+change_20_years
+```
+
+From this calculation we can see that for the last 20 years, there has been a incredible increase in both total jail population and all female jail population, yet black jail population did not have a such high increase. However, this data seems to contrast with the findings from the findings in question one where black jail population had a higher increase than female jail population. One of the hypothesis for this is that many individuals are released within the past 20 years since i only calculated with the data from 1998 and 2018.
 
 ## 3. Growth of the U.S. Prison Population
 
 Following is the graph of the growth of the U.S. prison population from 1970 to 2018.
 
--   Question: What does the graph show about U.S. prison population?
+-   Question: What can the graphs tell about U.S. prison population?
 
     -   In the following graph, we can see that the growth of the prison population is increasing gradually from 1970 to 2018. The graph did not show any decline which means that the number f individuals in jail have not decreased from 1970 to 2018. This data shows a rather concerning fact that more and more people are in jail each year.
 
@@ -82,7 +90,7 @@ growth_plot_state
 
 Following is a graph that displaces the number of male compare to female jail population. As displayed below, the blue bars represents male while the purple bars represent female. This graph only indicates number from 2018 of each state.
 
--   Question: What does the graph show about female and male jail population?
+-   Question: What can the graphs show about the difference between female and male jail population?
 
     -   Looking carefully st this graph, it is clear that female jail population is overall much lower than male population. California and Texas might have a significant higher female population than other states, but they also have a much higher male population. In this case, it's safe to say that most of the jail in each states are dominated by male.
 
@@ -91,6 +99,13 @@ plot_comparison + theme_bw(base_size = 9)
 ```
 
 ## 6. Map of Black Jail Population Ratio of 2018
+
+Following is a map that displays the black jail population ratio of 2018 in the U.S. Darker blue represents higher ratio while lighter blue represents lower ratio.
+
+-   Question: How does black jail population relates to regions?
+
+    -   As we can see in the map, black jail population varies in different region. One of the observation is that East coast states are generally higher in black jail population ratio. The most outstanding states are Alabama and Louisiana where the black jail population is around 0.5, which indicates that half of the population in jail are black individuals. This map reveals the racial inequalities in the U.S. jail system in different states. States such as Alabama and Louisiana have higher rate of black individuals in jail than other states.
+
 ```{r echo = FALSE}
 ratio_state_map
 ```
